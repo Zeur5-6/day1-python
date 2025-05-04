@@ -1,7 +1,7 @@
 import random
 from datetime import datetime
 import math
-import sys
+import sys, os
 
 today = datetime.now().date()
 while True:
@@ -22,3 +22,14 @@ root      = round(math.sqrt(lucky_num), 2)
 print(f"📅 {today} のラッキーナンバーは {lucky_num}!")
 print(f"  ‣ 各桁の合計   : {digit_sum}")
 print(f"  ‣ √{lucky_num} ≒ {root}")
+
+
+with open("log.txt", "a", encoding="utf-8")as f:
+    f.write(f"{today},{lucky_num}\n")
+
+if os.path.exists("log.txt"):
+    with open("log.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()[-5:]      # 後ろから5行スライス
+    print("\n🗒 直近の履歴")
+    for line in lines:
+        print("・" + line.strip())
